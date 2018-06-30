@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>政策</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/policy.css">
+    <script src="../js/base.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<section id="policy">
+    <!--搜索框 star-->
+    <!--<section class="search-box">-->
+    <!--<div class="search-con"><img src="../images/icon-magnifying-glass.png">搜索您想要找的政策</div>-->
+    <!--</section>-->
+    <!--搜索框 end-->
+    <!--政策列表 star-->
+    <section class="policy-list-box list-mar">
+        <div class="policy-list" v-for="item in policyList" @click="pageTo(item.productId)">
+            <div class="title">
+                <h1>{{item.productName}}</h1>
+                <img src="../images/img-hot.png" v-if="item.hot">
+            </div>
+            <div class="policy-list-con gray">
+                <p class="count">{{item.poSubsidies}}</p>
+            </div>
+        </div>
+    </section>
+    <!--政策列列表 end-->
+    <!--phone star-->
+    <a href="tel:0755-23984329" v-if="isQf"><img src="../images/img-call-phone.png" class="call-phone"></a>
+    <!--phone end-->
+</section>
+</body>
+</html>
+
+<script>
+    var app = new Vue({
+        el: '#policy',
+        data: {
+            isQf: true,
+            policyList: [],
+            p: 1
+        },
+        methods: {
+            request: function () {
+                var that = this;
+                $.ajax({
+                    url: SERVE1 + 'jhqf-web/product/searchByType.do',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        version: '1.0.0',
+                        productType: 'POLICY',
+                        startNum: (that.p - 1) * 10 + '',
+                        recordsPerPage: '10'
+                    },
+                    success: function (res) {
+                        if (res.code == 'S000') {
+                            if (that.p == 1) {
+                                if (res.data.length == 0) {
+                                    noData();
+                                } else {
+                                    var data = res.data;
+                                    that.policyList = data;
+                                }
+                            } else {
+                                var data = res.data;
+                                that.policyList = data;
+                            }
+                        } else {
+                            layerShow(res.desc);
+                        }
+                    },
+                    complete: function () {
+                    },
+                    error: function () {
+                        noData();
+                        // layerShow('请求失败');
+                    }
+                })
+            },
+            pageTo: function (productId) {
+                window.location.href = 'policy-detail.html?productId=' + productId + '&isQf=' + this.isQf;
+            }
+        },
+        created: function () {
+            this.request();
+            var sessionst = getUrlParam("sessionst");
+            var isObank = getUrlParam("isObank");
+            var isRegist = getUrlParam("rewardType");
+            window.sessionStorage.setItem('isRegistKey', JSON.stringify(isRegist));
+            window.sessionStorage.setItem('sessionstKey', JSON.stringify(sessionst));
+            if (isObank == 'YES') {
+                this.isQf = false;
+                document.title = '政策';
+            }
+        }
+
+    })
+</script>
+

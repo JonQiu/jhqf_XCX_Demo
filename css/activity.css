@@ -1,0 +1,142 @@
+
+/*排序筛选*/
+.sorting-filter {
+    display: flex;
+    padding: 0 0.2rem;
+    background: #fff;
+}
+
+.sort-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.sort-box .title {
+    display: flex;
+    align-items: center;
+    height: 0.8rem;
+    font-size: 0.24rem;
+}
+
+.sort-box .title i {
+    margin-left: 0.1rem;
+    width: 0.13rem;
+    height: 0.07rem;
+    background: url("../images/sort-tri.png") no-repeat center;
+}
+
+/*活动列表*/
+.activity-list-box {
+    padding: 0 0.2rem;
+}
+
+.activity-list {
+    background: #fff;
+}
+
+.activity-list-banner {
+    position: relative;
+}
+
+.activity-list-banner .banner {
+    width: 100%;
+}
+
+.mask-layer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 0.8rem ;
+    background-image: -moz-linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0.3), rgba(0,0,0,0));
+    background-image: -webkit-linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0.3), rgba(0,0,0,0));
+    background-image: -ms-linear-gradient(90deg,rgba(0,0,0,0.6), rgba(0,0,0,0.3), rgba(0,0,0,0));
+}
+
+.activity-list-banner .sale,.activity-list-banner .num {
+    position: absolute;
+    right: 0.2rem;
+    color: #fff;
+    font-size: 0.22rem;
+    z-index: 10;
+}
+
+.activity-list-banner .sale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0.3rem;
+    width: 0.85rem;
+    height: 0.36rem;
+    background-image: -moz-linear-gradient( 24deg, rgb(252,113,33) 13%, rgb(254,132,18) 58%, rgb(255,150,3) 100%);
+    background-image: -webkit-linear-gradient( 24deg, rgb(252,113,33) 13%, rgb(254,132,18) 58%, rgb(255,150,3) 100%);
+    background-image: -ms-linear-gradient( 24deg, rgb(252,113,33) 13%, rgb(254,132,18) 58%, rgb(255,150,3) 100%);
+}
+
+.activity-list-banner .num {
+    display: flex;
+    align-items: center;
+    bottom: 0.15rem;
+}
+
+.activity-list-banner .num img {
+    width: 0.25rem;
+    height: 0.14rem;
+    margin-right: 0.05rem;
+}
+
+.activity-list-con {
+    padding: 0.35rem 0.2rem;
+}
+
+.activity-list-con .title {
+    font-size: 0.28rem;
+    margin-bottom: 0.15rem;
+}
+
+.activity-list-con .bottom , .activity-list-con .place , .activity-list-con .time  {
+    display: flex;
+    align-items: center;
+}
+
+.activity-list-con .place {
+    margin-right: 1rem;
+}
+
+.activity-list-con .place img {
+    width: 0.18rem;
+    margin-top: 0.05rem;
+    margin-right: 0.1rem;
+}
+
+.activity-list-con .time img {
+    width: 0.2rem;
+    margin-right: 0.1rem;
+}
+
+
+/*活动详情*/
+.activity-detail-con {
+    background: #fff;
+    padding: 0.3rem 0.2rem;
+}
+
+.activity-detail-con .title {
+    font-size: 0.3rem;
+    margin-bottom: 0.1rem;
+}
+
+.activity-detail-con .place,.activity-detail-con .time  {
+    display: flex;
+    align-items: center;
+    margin-top: 0.15rem;
+}
+
+.activity-detail-con .place img,.activity-detail-con .time img  {
+    width: 0.2rem;
+    margin-right: 0.1rem;
+}
+
+.activity-detail-con .place img {
+    margin-top: 0.05rem;
+}

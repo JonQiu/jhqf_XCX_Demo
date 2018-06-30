@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>测试</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+    <link rel="stylesheet" href="../css/policy.css">
+    <script src="../js/base.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <!-- 先引入 Vue -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+
+
+</head>
+<body>
+<div id="test">
+
+</div>
+</body>
+</html>
+
+<script>
+    window.onload = function (ev) {
+        $.ajax({
+            url:'https://jhqf.o-banks.com/jhqf-web/wx/searchMyInfo.do',
+            type:'post',
+            data:{
+                sessionst: 'tgt628f7MZ3jLLebBgDdmIenBk6Bc3yV5Mw0E3NWSZ9WXHlbnFfUxLBy1kb6vRimSuWBV7',
+            },
+            success:function (r) {
+                console.log(r);
+            }
+        })
+    }
+</script>
+

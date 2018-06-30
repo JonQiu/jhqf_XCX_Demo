@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <script src="../js/base.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<section id="register" class="padding-bot">
+    <!--头像信息 star-->
+    <section class="register-info-box">
+        <div class="register-info-bg">
+            <img src="https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erFX7Vn1goXrqQVbcRhgO7j4HW9eWlcSYfiaCXgK125ibKtrmTxu7w2KyO1RpOfXicczC4XNGia44JsRQ/0">
+            <p>许灯辉</p>
+        </div>
+    </section>
+    <!--头像信息 end-->
+    <!--填写信息 star-->
+    <section class="register-input-box">
+        <h1 class="tit">填写个人资料</h1>
+        <div class="register-input-list">
+            <dl>
+                <dt>九慧企服ID</dt>
+                <dd>103981</dd>
+            </dl>
+            <dl>
+                <dt>姓名</dt>
+                <dd><input type="text" placeholder="请输入您的姓名"></dd>
+            </dl>
+            <dl>
+                <dt>职位</dt>
+                <dd><input type="text" placeholder="请输入您的职位"></dd>
+            </dl>
+            <dl>
+                <dt>所在企业</dt>
+                <dd><input type="text" placeholder="请输入您的所在企业"></dd>
+            </dl>
+            <dl>
+                <dt>手机号</dt>
+                <dd><input type="text" placeholder="请输入常用手机号码"></dd>
+            </dl>
+            <dl>
+                <dt>微信号</dt>
+                <dd><input type="text" placeholder="请输入微信号（选填）"></dd>
+            </dl>
+
+        </div>
+    </section>
+    <!--填写信息 end-->
+    <!--立即申请 star-->
+    <section class="apply-btn-box" v-if="isQf">
+        <div class="apply-btn" @click="pageToApply(productId)">提交资料</div>
+    </section>
+    <!--立即申请 end-->
+</section>
+</body>
+</html>
+
+<script>
+    var app = new Vue({
+        el: 'register',
+        data: {}
+    })
+</script>
+

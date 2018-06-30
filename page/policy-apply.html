@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta content="telephone=no" name="format-detection">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <title>政策申请</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/policy.css">
+  <script src="../js/base.js"></script>
+  <script src="../js/vue.min.js"></script>
+  <script src="../js/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<section id="policy-apply" class="padding-bot">
+  <!--政策简介 star-->
+  <section class="policy-brief-box">
+    <div class="policy-subsidy">
+      <div class="title">{{firstTit}}</div>
+      <div class="con">{{firstVal}}</div>
+    </div>
+    <div class="policy-bottom">
+      <div class="bottom-box">
+        <div class="title">{{secondTit}}</div>
+        <div class="con">{{secondVal}}</div>
+      </div>
+      <div class="bottom-box">
+        <div class="title">{{thirdTit}}</div>
+        <div class="con">{{thirdVal}}</div>
+      </div>
+    </div>
+  </section>
+  <!--政策简介 end-->
+  <!--基本信息 star-->
+  <section class="userinfo-fill-box">
+    <div class="bg">
+      <div class="title"><h1>基本信息</h1></div>
+      <div class="userinfo-fill">
+        <dl class="list">
+          <dt>姓名</dt>
+          <dd><input type="text" placeholder="请输入您的姓名" v-model="applyName" maxlength="20"></dd>
+        </dl>
+        <dl class="list">
+          <dt>企业名称</dt>
+          <dd><input type="text" placeholder="请输入您的企业名称" v-model="entName" maxlength="30"></dd>
+        </dl>
+        <dl class="list">
+          <dt>职位</dt>
+          <dd><input type="text" placeholder="请输入您的职位" v-model="job" maxlength="20"></dd>
+        </dl>
+        <dl class="list">
+          <dt>手机号</dt>
+          <dd><input type="tel" placeholder="请输入常用手机号码" v-model="applyPhone" maxlength="11"></dd>
+        </dl>
+        <!--<dl class="list">-->
+        <!--<dt>客户经理ID</dt>-->
+        <!--<dd><input type="text" placeholder="请输入客户经理ID（选填）"  v-model="showdata.applyName"></dd>-->
+        <!--</dl>-->
+      </div>
+    </div>
+  </section>
+  <!--基本信息 end-->
+  <!--立即申请 star-->
+  <section class="apply-btn-box">
+    <div class="apply-btn" @click="submit">确认无误，提交资料</div>
+  </section>
+  <!--立即申请 end-->
+</section>
+</body>
+</html>
+
+<script>
+  window.onload = function () {
+    var app = new Vue({
+      el: '#policy-apply',
+      data: {
+        showdata: {},
+        applyName: '',
+        entName: '',
+        job: '',
+        applyPhone: '',
+        productId: '',
+        sessionst: '',
+
+        firstTit: '',
+        secondTit: '',
+        thirdTit: '',
+        firstVal: '',
+        secondVal: '',
+        thirdVal: '',
+        productType: ''
+      },
+      methods: {
+        submit: function () {
+          this.checkForm();
+        },
+        checkForm: function () {
+          var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+          if (this.applyName == '') {
+            layerShow('姓名不能为空');
+            return;
+          }
+          if (this.entName == '') {
+            layerShow('企业名称不能为空');
+            return;
+          }
+          if (this.job == '') {
+            layerShow('职位不能为空');
+            return;
+          }
+          if (this.applyPhone == '') {
+            layerShow('手机号不能为空');
+            return;
+          }
+          if (!myreg.test(this.applyPhone)) {
+            layerShow('手机号格式不正确');
+            return;
+          } else {
+            this.request();
+          }
+        },
+        request: function () {
+          var that = this;
+          $.ajax({
+            url: SERVE1 + 'jhqf-web/order/add.do',
+            type: 'post',
+            data: {
+              sessionst: that.sessionst,
+              productId: that.productId,
+              productSource: that.showdata.productSource,
+              productName: that.showdata.productName,
+              productType: that.productType,
+              applyName: that.applyName,
+              applyPhone: that.applyPhone,
+              entName: that.entName,
+              job: that.job,
+            },
+            success: function (res) {
+              if (res.code == 'S000') {
+                window.location.href = 'submit-successfully.html';
+              } else {
+                console.log(res);
+                layerShow(res.desc);
+              }
+            },
+            error: function () {
+              layerShow('请求失败');
+            }
+          })
+        },
+        requestInfo: function () {
+          var that = this;
+          $.ajax({
+            url: SERVE1 + 'jhqf-web/wx/searchMyInfo.do',
+            type: 'post',
+            data: {
+              sessionst: that.sessionst,
+            },
+            success: function (res) {
+              console.log(res);
+              if (res.code == 'S000') {
+                var data = res.data;
+                that.applyName = data.memberName;
+                that.applyPhone = data.mobilePhone;
+                that.entName = data.unitName;
+                that.job = data.position;
+              } else {
+                layerShow(res.desc);
+              }
+            },
+            error: function () {
+              layerShow('请求失败');
+            }
+          })
+        }
+      },
+      created: function () {
+        this.productId = getUrlParam("productId");
+        this.showdata = JSON.parse(window.sessionStorage.getItem('detailStorage'));
+        document.title = this.showdata.productName;
+        this.sessionst = JSON.parse(window.sessionStorage.getItem('sessionstKey'));
+        console.log(this.showdata);
+        console.log(this.sessionst);
+        this.requestInfo();
+        //融资详情数据
+        this.firstTit = getUrlParam('firstTit');
+        this.secondTit = getUrlParam('secondTit');
+        this.thirdTit = getUrlParam('thirdTit');
+        this.firstVal = getUrlParam('firstVal');
+        this.secondVal = getUrlParam('secondVal');
+        this.thirdVal = getUrlParam('thirdVal');
+        this.productType = getUrlParam('productType');
+      }
+    })
+  }
+</script>
+

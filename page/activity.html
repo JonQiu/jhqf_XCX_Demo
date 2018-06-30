@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>活动</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/activity.css">
+    <script src="../js/base.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+</head>
+<body>
+<section id="activity-page">
+    <!--排序筛选 star-->
+    <!--<section class="sorting-filter">-->
+        <!--<div class="sort-box">-->
+            <!--<div class="title">排序<i></i></div>-->
+            <!--<div class="sort-con">-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="sort-box">-->
+            <!--<div class="title">筛选<i></i></div>-->
+            <!--<div class="sort-con">-->
+                <!---->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</section>-->
+    <!--排序筛选 end-->
+
+    <!--活动列表 star-->
+    <section class="activity-list-box" >
+        <div class="activity-list list-mar" v-for="item in activityList"  @click="pageTo(item.productId)">
+            <div class="activity-list-banner">
+                <div class="sale">{{item.activityCost}}</div>
+                <!--<div class="num"><img src="../images/icon-view.png">{{item.num}}</div>-->
+                <img v-bind:src="item.listPhotoUrl" class="banner">
+                <div class="mask-layer"></div>
+            </div>
+            <div class="activity-list-con">
+                <div class="title">{{item.productName}}</div>
+                <div class="bottom gray">
+                    <div class="place"><img src="../images/icon-location.png">广东 · 深圳</div>
+                    <div class="time"><img src="../images/icon-time.png">{{item.startTime }}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--活动列表 end-->
+
+</section >
+
+
+</body>
+</html>
+
+<script>
+    window.onload = function () {
+        var app = new Vue({
+            el: '#activity-page',
+            data: {
+                activityList:[],
+                p:1
+            },
+            methods: {
+                request: function () {
+                    var that = this;
+                    $.ajax({
+                        url: SERVE1 + 'jhqf-web/product/searchByType.do',
+                        type:'post',
+                        data:{
+                            version:'1.0.0',
+                            productType:'ACTIVITY',
+                            startNum:(that.p - 1)*10 + '',
+                            recordsPerPage : '10'
+                        },
+                        success:function (res) {
+                            var data = res.data;
+                            if(res.code == 'S000'){
+                                if(this.p == 1){
+                                    if(res.data.length == 0){
+                                        noData();
+                                    }else {
+                                        console.log(res);
+                                        that.activityList = data;
+                                        console.log(that.activityList);
+                                    }
+                                }else{
+                                    that.activityList = data;
+                                }
+                            }else {
+                                layerShow(res.desc);
+                            }
+                        },
+                        complete:function () {
+                            // hideActivity();
+                        },
+                        error:function () {
+                            noData();
+                            // layerShow('请求失败');
+                        }
+                    })
+                },
+                pageTo:function (productId) {
+                    window.location.href='activity-detail.html?productId=' + productId;
+                },
+                handleScroll:function() {
+                    //判断滚动到底部
+                    if ($(window).scrollTop() >=$(document).height() - $(window).height()) {
+                        this.p++;
+                        this.request(this.p);
+                    }
+                }
+            },
+            mounted:function () {
+                this.request();
+                //监听滚动
+                window.addEventListener('scroll', this.handleScroll);
+            }
+
+        })
+    }
+
+</script>
+

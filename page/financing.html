@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>融资列表</title>
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/financing.css">
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+    <script src="../js/base.js"></script>
+</head>
+<body>
+<section id="financing">
+    <div class="finance-list pad-side list-bot" v-for="(item,index) in financeList" :key="index" @click="pageTo(item.productId)">
+        <div class="finance-list-top">
+            <h1 class="tit">{{index + 1}}. {{item.productName}}</h1>
+            <div class="credit">增信：{{item.guaranteedWay}}</div>
+        </div>
+        <div class="finance-list-con">
+            <div class="left">
+                <div class="loan-limit-num">{{item.creditorScalesMin}}~{{item.creditorScalesMax}}万</div>
+                <div class="loan-limit-tit">贷款额度</div>
+            </div>
+            <div class="right">
+                <dl class="loan-right-con">
+                    <dt>贷款期限</dt>
+                    <dd>{{item.creditorTermMin}}~{{item.creditorTermMax}}月</dd>
+                </dl>
+                <dl class="loan-right-con">
+                    <dt>参考利率</dt>
+                    <dd v-if="item.creditorYieldMax">{{item.creditorYieldMim}}%~{{item.creditorYieldMax}}%</dd>
+                    <dd v-else>{{item.creditorYieldMim}}%起</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="finance-list-bank">{{item.productSource}}</div>
+    </div>
+</section>
+</body>
+</html>
+
+<script>
+    var app = new Vue({
+        el: '#financing',
+        data: {
+            financeList: '',
+            p: 1
+        },
+        methods: {
+            loadMore: function () {
+                var that = this;
+                this.loading = true;
+                this.p++;
+                setTimeout(function () {
+                    that.requestFinance();
+                    this.loading = false;
+                }, 2000);
+            },
+            requestFinance: function () {
+                var that = this;
+                $.ajax({
+                    url: SERVE1 + 'jhqf-web/product/searchByType.do',
+                    type: 'post',
+                    data: {
+                        productType: 'CREDITOR',
+                        startNum: (that.p - 1) * 10,
+                        recordsPerPage: '10'
+                    },
+                    success: function (r) {
+                        if(r.code == 'S000'){
+                            if(that.p == 1){
+                                if (r.data.length == 0) {
+                                    noData();
+                                } else {
+                                    that.financeList = r.data;
+                                }
+                            }else {
+                                that.financeList = r.data;
+                            }
+                        }else {
+                            this.$toast(r.desc);
+                        }
+                    },
+                    error: function () {
+                        noData();
+                    }
+                })
+            },
+            pageTo: function (productId) {
+                window.location.href = 'financing-detail.html?productId=' + productId;
+            }
+        },
+        created: function () {
+            this.requestFinance();
+            var sessionst = getUrlParam('sessionst');
+            var isRegist = getUrlParam("rewardType");
+            window.sessionStorage.setItem('isRegistKey', JSON.stringify(isRegist));
+            window.sessionStorage.setItem('sessionstKey', JSON.stringify(sessionst));
+        }
+    })
+</script>
+

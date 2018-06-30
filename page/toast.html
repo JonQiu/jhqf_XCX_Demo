@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>输入框</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/activity.css">
+    <script src="../js/base.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+
+    <script src="../js/vue.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+
+
+</head>
+<body>
+    <div id="page-toast">
+        <h1 class="page-title">Toast</h1>
+        <div class="page-toast-wrapper">
+            <div @click="openToast()">XXXXXXXX</div>
+            <mt-button @click="pageToApply()" size="large">点击弹出 Toast</mt-button>
+            <mt-button @click.native="openToastWithIcon" size="large">点击弹出带有 icon 的 Toast</mt-button>
+            <mt-button @click.native="openBottomToast" size="large">自定义 Toast 位置</mt-button>
+        </div>
+    </div>
+</body>
+
+
+<script>
+
+    var app = new Vue({
+        el: '#page-toast',
+        data: {
+            monney:'200',
+            startTime:'345'
+        },
+        watch:{
+            monney (val, oldVal) {
+                console.log( val, oldVal);
+            },
+        },
+        methods: {
+            openToast() {
+              //    layer.msg('提示信息');
+                this.$toast('提示信息');
+            },
+
+        },
+        created:function() {
+
+        },
+    })
+</script>
+
+</html>

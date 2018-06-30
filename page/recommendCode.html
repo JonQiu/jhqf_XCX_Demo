@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>我的推荐码</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <script src="../js/base.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../js/clipboard.js"></script>
+    <script src="../js/qrcode.min.js"></script>
+    <style>
+        /* pages/introduceCode/introduceCode.wxss */
+        body{
+            background-color: #038fff;
+        }
+        .container{
+            padding-top: 0.4rem;
+            box-sizing: border-box;
+        }
+        .white-bg{
+            width: 6.7rem;
+            border-radius: 0.08rem;
+            text-align: center;
+            background-color: white;
+            margin-left: 0.4rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .div-top{
+            padding-top: .5rem;
+            height: 2.6rem;
+            border-bottom: dashed 1px #e5e5e5;
+            box-sizing: border-box;
+        }
+        .code-top{
+            font-size: .28rem;
+            margin-bottom: .3rem;
+            color: #7a7a80;
+        }
+        .code{
+            font-size: .6rem;
+            font-weight: bolder;
+            color: #313133;
+        }
+        .div-mid{
+            height: 5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .code-detail{
+            margin-top: .5rem;
+            margin-bottom: .2rem;
+            font-size: .24rem;
+            color: #ababb2;
+        }
+        #copyBt{
+            /*background-color: red;*/
+            width: 2.7rem;
+            margin-left: 2rem;
+            height: 0.5rem;
+            line-height: 0.5rem;
+        }
+        .qrcode{
+            width: 3.6rem;
+            height: 3.6rem;
+        }
+        .left-dot{
+            position: absolute;
+            width: .3rem;
+            height: .3rem;
+            top: 2.6rem;
+            left: -.15rem;
+            margin-top: -.15rem;
+            border-radius: .15rem;
+            background-color: #038fff;
+        }
+        .right-dot{
+            position: absolute;
+            width: .3rem;
+            height: .3rem;
+            top: 2.6rem;
+            right: -.15rem;
+            margin-top: -.15rem;
+            border-radius: .15rem;
+            background-color: #038fff;
+        }
+        .container-bottom{
+            width: 100%;
+            position: absolute;
+            bottom: .2rem;
+            text-align: center;
+            font-size: .24rem;
+            color: #e5e5e5;
+        }
+        .bottom-detail{
+            color: #808080;
+            font-size: 0.24rem;
+            margin-top: 0.5rem;
+            padding: 0 0.5rem;
+        }
+        #shareBtn{
+            color: #038fff;
+            outline-style: none;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+<section class='container'>
+    <div class='white-bg'>
+        <div class='div-top'>
+            <div class='code-top'>我的推荐码</div>
+            <div class='code'></div>
+            <div id="copyBt" class='js-copy' data-clipboard-text="">
+                <button id="shareBtn">复制推荐码</button>
+            </div>
+        </div>
+        <div class='div-mid'>
+            <div class='code-detail'>长按二维码分享或保存</div>
+            <!--<img class='qrcode' src=''>-->
+            <div id="qrcode" class="qrcode"></div>
+        </div>
+        <div class='div-bottom'>
+
+            <!--<div id="saveImg"  class='bottom-right'>保存到本地</div>-->
+        </div>
+        <div class='left-dot'></div>
+        <div class='right-dot '></div>
+        <div class="bottom-detail">您可以将推荐码发送给客户，成功邀请一名客户注册并完善资料后，您将得到一定比例的返利提成。</div>
+    </div>
+    <div class='container-bottom'>九慧企服</div>
+
+</section>
+<div style="display: none">
+    <img id="logoImg" src="../images/9hq_flogo144.png">
+</div>
+</body>
+</html>
+<script>
+
+    var code = getUrlParam('recode');
+    window.onload = function () {
+        makeCode();
+    };
+    var string = '邀请码：'+code +'邀请您加入九慧企服--一站式企业管家服务。本周内加入还可能获得现金红包奖励，尽快加入哦～～您可以在微信小程序中搜索 "九慧企服” 并注册使用。'
+    $('#copyBt').attr('data-clipboard-text',string);
+    $('.code').text(code);
+    var copyBt = document.getElementById('copyBt');
+    var clipboard = new Clipboard(copyBt);//实例化
+    //复制成功执行的回调，可选
+    clipboard.on('success', function(e) {
+        alertShow('复制成功','确定',function () {
+            console.log('确定');
+        },function () {
+            console.log('取消')
+        })
+    });
+    //复制失败执行的回调，可选
+    clipboard.on('error', function(e) {
+        alertShow('复制失败','确定',function () {
+            console.log('确定')
+        },function () {
+            console.log('取消')
+        })
+    });
+//    //生成二维码
+    function makeCode() {
+        var qrcodeH = $("#qrcode").height();
+        console.log(qrcodeH);
+        var qrcode = new QRCode(document.getElementById("qrcode"), {width: qrcodeH, height: qrcodeH});
+        qrcode.makeCode( 'https://open.weixin.qq.com/sns/getexpappinfo?appid=wx8c979d74ed9a5587&path=pages%2Fqf%2Findex%2Findex.html?recode='+code+'#wechat-redirect');
+        drawing(qrcodeH);
+    }
+    function drawing(qrcodeH){
+        var x = qrcodeH * 0.4;
+        var y = qrcodeH * 0.4;
+        var lw = qrcodeH * 0.2;
+        var lh = qrcodeH * 0.2;
+        var ctx =  $("#qrcode canvas")[0].getContext('2d');
+        ctx.drawImage($('#logoImg')[0], x, y, lw, lh);
+    }
+</script>

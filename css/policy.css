@@ -1,0 +1,173 @@
+/*搜索框*/
+.search-box {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 0.25rem 0 0.35rem 0;
+    background: #038fff;
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+}
+
+.search-con {
+    width: 90%;
+    height: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 0.06rem;
+    color: #b3b3b3;
+    font-size: 0.26rem;
+}
+
+.search-con img {
+    width: 0.32rem;
+    margin: 0.03rem 0.2rem 0 0;
+}
+
+/*政策列表*/
+.policy-padding {
+    padding-top: 1.3rem;
+}
+
+.policy-list-box {
+    background: #fff;
+    padding: 0 0.2rem;
+}
+
+.policy-list {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.policy-list .title {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.policy-list .title h1 {
+    max-width: 85%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.3rem;
+    font-weight: bold;
+}
+
+.policy-list .title img {
+    width: 0.4rem;
+    margin-left: 0.2rem;
+}
+
+.policy-list-con {
+    display: flex;
+    align-items: center;
+    margin-top: 0.1rem;
+}
+
+.call-phone {
+    position: fixed;
+    width: 1.23rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+}
+
+
+
+/*政策详情*/
+.policy-brief-box {
+    background: #038fff;
+    color: #fff;
+}
+
+.policy-subsidy {
+    text-align: center;
+    padding-top: 0.15rem;
+}
+
+.policy-subsidy .title,.policy-bottom .title {
+    font-size: 0.26rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.policy-subsidy .con {
+    width: 85%;
+    margin: 0.3rem auto 0 auto ;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.4rem;
+}
+
+.policy-bottom {
+    display: flex;
+    padding: 0.6rem 0;
+}
+
+.policy-bottom .bottom-box {
+    flex: 1;
+    border-right: 1px solid rgba(255,255,255,0.5);
+    text-align: center;
+}
+
+.policy-bottom .bottom-box:last-child {
+    border: none;
+}
+
+.policy-bottom .con {
+    margin-top: 0.2rem;
+    font-size: 0.3rem;
+}
+
+.policy-bottom .unit {
+    font-size: 0.22rem;
+    margin-left: 0.05rem;
+}
+
+
+/*政策申请*/
+.userinfo-fill-box {
+
+}
+
+.userinfo-fill-box .bg {
+    background: #fff;
+    padding: 0.5rem 0.25rem 0 0.25rem ;
+}
+
+.userinfo-fill-box .title {
+    padding-left: 0.2rem;
+    border-left: 0.06rem solid #038fff;
+}
+
+.userinfo-fill-box .title h1 {
+    font-size: 0.3rem;
+    font-weight: bold;
+}
+
+.userinfo-fill .list {
+    height: 1rem;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.28rem;
+}
+
+.userinfo-fill .list:last-child {
+    border-bottom:none;
+}
+
+.userinfo-fill .list dd input {
+    width: 100%;
+    text-align: right;
+    font-size: 0.28rem;
+}
+
+.userinfo-fill .list dd {
+    flex: 1;
+    margin-left: 0.2rem;
+}

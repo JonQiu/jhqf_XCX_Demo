@@ -1,0 +1,150 @@
+/*=========融资列表=========*/
+.finance-list {
+    background: #fff;
+}
+
+.finance-list-top {
+    padding: 0.25rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.finance-list-top .tit {
+    font-size: 0.3rem;
+    font-weight: bold;
+    width: 50%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.finance-list-top .credit {
+    color: #fb5a5c;
+    width: 45%;
+    text-align: right;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.finance-list-con {
+    display: flex;
+    font-size: 0.26rem;
+}
+
+.finance-list-con .left {
+    width: 39%;
+    border-right: 1px dashed #e5e5e5;
+}
+
+.loan-limit-num {
+    color: #fb5a5c;
+    margin-bottom: 0.1rem;
+}
+
+.finance-list-con .right {
+    padding-left: 0.7rem;
+}
+
+.loan-right-con {
+    display: flex;
+    align-items: center;
+}
+
+.loan-right-con {
+    margin-bottom: 0.1rem  ;
+}
+
+.loan-right-con dt {
+    color: #808080;
+    margin-right: 0.2rem;
+
+}
+
+.finance-list-bank {
+    margin-top: 0.25rem;
+    border-top: 1px solid #e5e5e5;
+    line-height: 0.8rem;
+    color: #808080;
+}
+
+/*=========融资详情=========*/
+.finance-detail-header {
+    background: #038fff;
+    padding: 0.15rem 0 0.35rem 0;
+    color: #fff;
+    font-size: 0.26rem;
+    text-align: center;
+}
+
+.finance-detail-header dt {
+    color: rgba(255,255,255,0.7);
+}
+
+.finance-detail-header dd {
+    margin-top: 0.2rem;
+    font-size: 0.36rem;
+}
+
+.finance-detail-header .limit dd {
+    font-size: 0.6rem;
+}
+
+.finance-header-bot {
+    display: flex;
+    margin-top: 0.5rem;
+}
+
+.finance-header-bot .con {
+    flex: 1;
+}
+
+.finance-header-bot .con span {
+    font-size: 0.22rem;
+}
+
+.finance-header-bot .border {
+    border-right: 1px solid rgba(255,255,255,0.5);
+}
+
+.finance-detail-content {
+    background: #fff;
+    margin-top: 0.2rem;
+    color: #49494c;
+}
+
+.finance-detail-content dl {
+    display: flex;
+}
+
+.finance-detail-content dt {
+    min-width: 1.2rem;
+    color: #808080;
+    margin-right: 0.25rem;
+    line-height: 0.48rem;
+}
+
+.finance-detail-content dd {
+    padding-top: 0.04rem;
+}
+
+.finance-detail-content .title {
+    display: flex;
+    align-items: center;
+    height: 0.9rem;
+    font-size: 0.3rem;
+    font-weight: bold;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.finance-detail-content .title img {
+    width: 0.32rem;
+}
+
+.finance-detail-content .title .safe {
+    margin: 0 0.1rem 0 0.25rem;
+}
+
+.finance-detail-content .list-con {
+    padding: 0.35rem 0.2rem;
+}

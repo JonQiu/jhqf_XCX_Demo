@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>输入框</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/activity.css">
+    <script src="../js/base.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+</head>
+<body>
+    <div id="field">
+        <div class="page-field">
+            <!--用watch去监听input的值的变化-->
+            <input class="monneyInput" placeholder="请输入金额" v-model="monney" />
+        </div>
+        <div class="time">{{startTime}}</div>
+    </div>
+
+
+</body>
+
+<script>
+    var app = new Vue({
+        el: '#field',
+        data: {
+            monney:'200',
+            startTime:'345'
+        },
+        watch:{
+            monney (val, oldVal) {
+                console.log( val, oldVal);
+            },
+        },
+        methods: {
+            request: function () {
+
+            }
+
+        },
+        created:function() {
+
+        },
+    })
+</script>
+
+</html>
